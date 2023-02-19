@@ -8,18 +8,27 @@ to take no more than two hours to complete, though there is no predefined time l
 
 Requirements:
 • Create, Update, Delete, List web service endpoints for a user object.
+
 • User object should contain a name, email address, password and the date of their last login.
+
 • Provide a login endpoint that validates the email address and password provided by the user
 matches the one stored in the database.
 
+
 Notes:
 • Please write your code in Python.
+
 • You may choose any database you like (sqlite, mysql, mssql, mongodb, dynamodb, etc.)
+
 • You don't need to worry about logging, deployment, https, etc.
+
 • You do not need to worry about providing any kind of user interface.
+
 • If there are any areas of the code that are left incomplete, provide good comments about how
 you would implement missing features
+
 • Code must be submitted to github or bitbucket, and must be done at least 24 hours prior to the interview.
+
 • If you have questions or clarifications, please contact your recruiter.
 
 During the interview, we will expect you to demo (Postman/curl or alternative) and discuss the code you submitted, so be prepared to talk in-depth about the implementation, enhancements, etc.
