@@ -7,6 +7,7 @@ The purpose of the exercise is to evaluate your ability to create a simple REST 
 to take no more than two hours to complete, though there is no predefined time limit.
 
 Requirements:
+
 • Create, Update, Delete, List web service endpoints for a user object.
 
 • User object should contain a name, email address, password and the date of their last login.
@@ -16,6 +17,7 @@ matches the one stored in the database.
 
 
 Notes:
+
 • Please write your code in Python.
 
 • You may choose any database you like (sqlite, mysql, mssql, mongodb, dynamodb, etc.)
@@ -32,6 +34,7 @@ you would implement missing features
 • If you have questions or clarifications, please contact your recruiter.
 
 During the interview, we will expect you to demo (Postman/curl or alternative) and discuss the code you submitted, so be prepared to talk in-depth about the implementation, enhancements, etc.
+
 
 Part 2 - Architectural Analysis
 
