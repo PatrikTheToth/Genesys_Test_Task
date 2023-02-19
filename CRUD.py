@@ -5,26 +5,28 @@ import datetime
 app = Flask(__name__)
 
 # Database connection
-conn = sqlite3.connect('user.db')
-cursor = conn.cursor()
+global_conn = sqlite3.connect('user.db')
+global_cursor = global_conn.cursor()
 
 # Create users table
-cursor.execute('''CREATE TABLE IF NOT EXISTS users
+global_cursor.execute('''CREATE TABLE IF NOT EXISTS users
                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
                  name TEXT NOT NULL,
                  email TEXT NOT NULL,
                  password TEXT NOT NULL,
                  last_login DATE NOT NULL)''')
-conn.commit()
+global_conn.commit()
 
 
 # Create a user
 @app.route('/users', methods=['POST'])
 def create_user():
+    # Get the data from the HTTP request
     data = request.get_json()
     name = data['name']
     email = data['email']
     password = data['password']
+    # last login time is set as the creation timestamp
     last_login = datetime.datetime.now()
 
     # Check if the user already exists in the database
@@ -51,10 +53,12 @@ def create_user():
 # Update a user
 @app.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
+    # Get the data from the HTTP request
     data = request.get_json()
     name = data['name']
     email = data['email']
     password = data['password']
+    # treating update as a login here, just like with create
     last_login = datetime.datetime.now()
 
     update_conn = sqlite3.connect('user.db')
@@ -113,11 +117,12 @@ def login():
     login_conn = sqlite3.connect('user.db')
     login_cursor = login_conn.cursor()
 
+    # Check if a user exists in the database with the same email and password
     login_cursor.execute("SELECT * FROM users WHERE email=? AND password=?", (email, password))
     user = login_cursor.fetchone()
 
     if user:
-        # Update the last_login field to the current date and time
+        # if we get a hit update the login time, as simulating a login scenario
         now = datetime.datetime.now()
         login_cursor.execute("UPDATE users SET last_login = ? WHERE email = ?", (now, email))
         login_conn.commit()
@@ -126,7 +131,7 @@ def login():
         login_conn.close()
         return jsonify({'message': 'Login successful!'})
     else:
-
+        # if the user data provided does not produce a match in the DB, give an error.
         login_cursor.close()
         login_conn.close()
         return make_response(jsonify({'message': 'Invalid email or password'}), 401)
